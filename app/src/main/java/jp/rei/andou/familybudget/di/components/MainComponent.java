@@ -1,0 +1,12 @@
+package jp.rei.andou.familybudget.di.components;
+
+import dagger.Subcomponent;
+import jp.rei.andou.familybudget.di.modules.MainModule;
+import jp.rei.andou.familybudget.presentation.main.MainActivity;
+
+@Subcomponent(modules = MainModule.class)
+public interface MainComponent {
+
+    void inject(MainActivity activity);
+
+}
