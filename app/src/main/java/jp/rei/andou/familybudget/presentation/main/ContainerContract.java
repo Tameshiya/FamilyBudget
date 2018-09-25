@@ -10,7 +10,9 @@ public interface ContainerContract {
     }
 
     abstract class MainPresenter extends Presenter<MainView> {
-        //
+
+
+
     }
 
 }

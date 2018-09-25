@@ -4,13 +4,20 @@ import java.lang.ref.SoftReference;
 
 import jp.rei.andou.familybudget.di.components.AppComponent;
 import jp.rei.andou.familybudget.di.components.MainComponent;
+import jp.rei.andou.familybudget.di.components.PaymentsComponent;
 import jp.rei.andou.familybudget.di.modules.MainModule;
+import jp.rei.andou.familybudget.di.modules.PaymentsModule;
 import jp.rei.andou.familybudget.presentation.main.MainActivity;
+import jp.rei.andou.familybudget.presentation.payments.PaymentsFragment;
 
 public class ComponentsManager {
 
     private final AppComponent appComponent;
-    private SoftReference<MainComponent> authorizationComponent;
+    private MainComponent containerComponent;
+    /**
+     * For avoiding "scope singletonfying" by keeping strong reference
+     */
+    private SoftReference<PaymentsComponent> paymentsComponent;
 
     public ComponentsManager(AppComponent appComponent) {
         this.appComponent = appComponent;
@@ -24,10 +31,19 @@ public class ComponentsManager {
     }
 
     public void inject(MainActivity mainActivity) {
-        authorizationComponent = updateComponentIfNeeded(
-                authorizationComponent, appComponent.plus(new MainModule())
+        containerComponent = appComponent.plus(new MainModule());
+        containerComponent.inject(mainActivity);
+    }
+
+    public void inject(PaymentsFragment fragment) {
+        paymentsComponent = updateComponentIfNeeded(
+                paymentsComponent,
+                appComponent.plus(new PaymentsModule())
         );
-        authorizationComponent.get().inject(mainActivity);
+        PaymentsComponent component = paymentsComponent.get();
+        if (component != null) {
+            component.inject(fragment);
+        }
     }
 
 }

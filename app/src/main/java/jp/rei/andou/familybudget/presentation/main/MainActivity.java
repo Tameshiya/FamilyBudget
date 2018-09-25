@@ -1,9 +1,10 @@
 package jp.rei.andou.familybudget.presentation.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import jp.rei.andou.familybudget.R;
+import jp.rei.andou.familybudget.presentation.App;
 
 public class MainActivity extends AppCompatActivity implements ContainerContract.MainView {
 
@@ -11,6 +12,8 @@ public class MainActivity extends AppCompatActivity implements ContainerContract
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ((App)getApplicationContext()).inject(this);
+
     }
 
     @Override
