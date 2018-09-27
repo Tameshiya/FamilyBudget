@@ -6,19 +6,23 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import jp.rei.andou.familybudget.presentation.App;
+import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
+import jp.rei.andou.familybudget.presentation.router.ActivityRouter;
 
 @Module
 public class AppModule {
 
-    private final Context context;
-
-    public AppModule(Context applicationContext) {
-        this.context = applicationContext;
+    @Singleton
+    @Provides
+    public Context provideApplicationContext(Context applicationContext) {
+        return applicationContext;
     }
 
     @Singleton
     @Provides
-    public Context provideApplicationContext() {
-        return context;
+    public ActivityNavigator provideActivityNavigator(Context applicationContext) {
+        return new ActivityRouter(((App) applicationContext));
     }
+
 }

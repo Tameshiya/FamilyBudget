@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -16,7 +16,7 @@ import jp.rei.andou.familybudget.presentation.App;
 
 public class ActivityRouter implements ActivityNavigator, Application.ActivityLifecycleCallbacks{
 
-    private final Deque<SoftReference<? extends Activity>> screens = new ConcurrentLinkedDeque<>();
+    private final Deque<WeakReference<? extends Activity>> screens = new ConcurrentLinkedDeque<>();
     private final App applicationContext;
 
     @Inject
@@ -27,12 +27,12 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
 
     public <S extends Activity> void registerScreen(S screen) {
         if (!isScreenRegistered(screen)) {
-            this.screens.add(new SoftReference<>(screen));
+            this.screens.add(new WeakReference<>(screen));
         }
     }
 
     private <S extends Activity> boolean isScreenRegistered(S screen) {
-        for (SoftReference reference : screens) {
+        for (WeakReference reference : screens) {
             if (reference.get() == null) {
                 screens.remove(reference);
             } else if (reference.get() == screen) {
@@ -43,7 +43,7 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
     }
 
     private void updateScreens() {
-        for (SoftReference reference : screens) {
+        for (WeakReference reference : screens) {
             if (reference.get() == null) {
                 screens.remove(reference);
             }
@@ -93,7 +93,7 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        screens.add(new SoftReference<>(activity));
+        screens.add(new WeakReference<>(activity));
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
     }
 
     private void destroyScreen(Activity activity) {
-        for (SoftReference reference : screens) {
+        for (WeakReference reference : screens) {
             if (reference.get() == null || reference.get() == activity) {
                 screens.remove(reference);
             }
