@@ -18,6 +18,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getApplicationContext()).inject(this);
+        presenter.bindView(this);
     }
 
     @Override

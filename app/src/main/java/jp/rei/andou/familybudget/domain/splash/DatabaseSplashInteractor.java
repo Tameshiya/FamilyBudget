@@ -4,7 +4,7 @@ public class DatabaseSplashInteractor implements SplashInteractor {
 
 
     @Override
-    public boolean isProfileActive() {
+    public boolean hasProfileActive() {
         return false;
     }
 }

@@ -9,8 +9,8 @@ import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 
 public class SplashPresenter extends SplashContract.SplashPresenterContract {
 
-    ActivityNavigator navigator;
-    SplashInteractor interactor;
+    private final ActivityNavigator navigator;
+    private final SplashInteractor interactor;
 
     @Inject
     public SplashPresenter(ActivityNavigator activityNavigator, SplashInteractor interactor) {
@@ -20,7 +20,7 @@ public class SplashPresenter extends SplashContract.SplashPresenterContract {
 
     @Override
     void onReadyToStart() {
-        if (interactor.isProfileActive()) {
+        if (interactor.hasProfileActive()) {
             navigator.replaceWith(MainActivity.class);
         } else {
             navigator.replaceWith(OnboardingActivity.class);

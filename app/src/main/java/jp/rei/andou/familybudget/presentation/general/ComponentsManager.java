@@ -68,7 +68,7 @@ public class ComponentsManager {
     }
 
     public void inject(OnboardingActivity activity) {
-        //
+//        OnboardingComponent
     }
 
     public void inject(PaymentsFragment fragment) {
