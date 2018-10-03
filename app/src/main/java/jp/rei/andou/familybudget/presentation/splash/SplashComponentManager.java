@@ -10,6 +10,7 @@ import jp.rei.andou.familybudget.di.components.SplashComponent;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
 import jp.rei.andou.familybudget.di.scopes.SplashScreenScope;
 import jp.rei.andou.familybudget.presentation.general.ComponentInjector;
+import jp.rei.andou.familybudget.presentation.views.SplashActivity;
 
 public class SplashComponentManager implements ComponentInjector<SplashActivity> {
 

@@ -5,16 +5,16 @@ import dagger.Provides;
 import jp.rei.andou.familybudget.di.scopes.SplashScreenScope;
 import jp.rei.andou.familybudget.domain.splash.DatabaseSplashInteractor;
 import jp.rei.andou.familybudget.domain.splash.SplashInteractor;
-import jp.rei.andou.familybudget.presentation.splash.SplashPresenter;
+import jp.rei.andou.familybudget.presentation.presenters.SplashPresenter;
+import jp.rei.andou.familybudget.presentation.views.SplashContract;
 
 @Module
 public class SplashModule {
 
     @SplashScreenScope
     @Provides
-    public SplashPresenter provideSplashPresenter(/*ActivityNavigator navigator,*/
-                                                        SplashInteractor interactor) {
-        return new SplashPresenter(null, interactor);
+    public SplashContract.SplashPresenter provideSplashPresenter(SplashInteractor interactor) {
+        return new SplashPresenter(interactor);
     }
 
     @SplashScreenScope

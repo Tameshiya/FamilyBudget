@@ -1,4 +1,4 @@
-package jp.rei.andou.familybudget.presentation.splash;
+package jp.rei.andou.familybudget.presentation.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +8,10 @@ import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.presentation.App;
 
+import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashPresenter;
+import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashView;
 
-public class SplashActivity extends AppCompatActivity implements SplashContract.SplashView {
+public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Inject
     SplashPresenter presenter;
@@ -19,6 +21,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         super.onCreate(savedInstanceState);
         ((App) getApplicationContext()).inject(this);
         presenter.bindView(this);
+        presenter.onReadyToStart();
     }
 
     @Override

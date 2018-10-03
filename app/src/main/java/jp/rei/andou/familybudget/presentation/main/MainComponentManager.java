@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import jp.rei.andou.familybudget.di.components.AppComponent;
 import jp.rei.andou.familybudget.di.components.MainComponent;
 import jp.rei.andou.familybudget.di.modules.MainModule;
+import jp.rei.andou.familybudget.presentation.views.MainActivity;
 
 public class MainComponentManager {
 

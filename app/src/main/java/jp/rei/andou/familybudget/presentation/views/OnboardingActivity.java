@@ -1,4 +1,4 @@
-package jp.rei.andou.familybudget.presentation.onboarding;
+package jp.rei.andou.familybudget.presentation.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,10 @@ import butterknife.ButterKnife;
 import jp.rei.andou.familybudget.R;
 import jp.rei.andou.familybudget.presentation.App;
 
-public class OnboardingActivity extends AppCompatActivity implements OnboardingContract.OnboardingView{
+import static jp.rei.andou.familybudget.presentation.views.OnboardingContract.OnboardingPresenter;
+import static jp.rei.andou.familybudget.presentation.views.OnboardingContract.OnboardingView;
+
+public class OnboardingActivity extends AppCompatActivity implements OnboardingView {
 
     @Inject
     OnboardingPresenter presenter;

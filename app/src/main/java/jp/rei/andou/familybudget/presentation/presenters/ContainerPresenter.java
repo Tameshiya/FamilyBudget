@@ -1,10 +1,14 @@
-package jp.rei.andou.familybudget.presentation.main;
+package jp.rei.andou.familybudget.presentation.presenters;
 
 import javax.inject.Inject;
 
-import jp.rei.andou.familybudget.presentation.payments.PaymentsFragment;
 import jp.rei.andou.familybudget.presentation.router.FragmentNavigator;
+import jp.rei.andou.familybudget.presentation.views.ContainerContract;
+import jp.rei.andou.familybudget.presentation.views.PaymentsFragment;
 
+/**
+ * Only container presenter can route fragments
+ */
 public class ContainerPresenter extends ContainerContract.MainPresenter {
 
     private final FragmentNavigator navigator;
@@ -12,7 +16,7 @@ public class ContainerPresenter extends ContainerContract.MainPresenter {
     @Inject
     public ContainerPresenter(FragmentNavigator navigator) {
         this.navigator = navigator;
-        //Exact fragment creating is non context-safe approach?
+        //todo Remove exact fragment creation with proxy-factory-method, cuz it's non context-safe approach
         navigator.newScreen(new PaymentsFragment());
     }
 }

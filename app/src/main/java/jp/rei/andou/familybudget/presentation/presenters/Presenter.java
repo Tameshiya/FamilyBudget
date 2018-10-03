@@ -1,6 +1,8 @@
-package jp.rei.andou.familybudget.presentation.general;
+package jp.rei.andou.familybudget.presentation.presenters;
 
 import android.support.annotation.Nullable;
+
+import jp.rei.andou.familybudget.presentation.general.BaseView;
 
 public abstract class Presenter<T extends BaseView> {
 

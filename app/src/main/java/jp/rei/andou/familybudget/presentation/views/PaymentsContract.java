@@ -1,9 +1,9 @@
-package jp.rei.andou.familybudget.presentation.payments;
+package jp.rei.andou.familybudget.presentation.views;
 
 import java.util.List;
 
 import jp.rei.andou.familybudget.presentation.general.BaseView;
-import jp.rei.andou.familybudget.presentation.general.Presenter;
+import jp.rei.andou.familybudget.presentation.presenters.Presenter;
 
 public interface PaymentsContract {
 
@@ -13,9 +13,9 @@ public interface PaymentsContract {
 
     }
 
-    abstract class PaymentsPresenterContract extends Presenter<PaymentsView> {
+    abstract class PaymentsPresenter extends Presenter<PaymentsView> {
 
-        abstract void onPaymentClick();
+        public abstract void onPaymentClick();
 
     }
 

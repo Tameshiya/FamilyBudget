@@ -1,4 +1,4 @@
-package jp.rei.andou.familybudget.presentation.payments;
+package jp.rei.andou.familybudget.presentation.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import jp.rei.andou.familybudget.presentation.App;
 public class PaymentsFragment extends Fragment implements PaymentsContract.PaymentsView {
 
     @Inject
-    PaymentsPresenter presenter;
+    PaymentsContract.PaymentsPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
