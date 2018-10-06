@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.presentation.App;
+import lombok.Getter;
 
 import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashPresenter;
 import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashView;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
 
+    @Getter
     @Inject
     SplashPresenter presenter;
 

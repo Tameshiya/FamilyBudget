@@ -4,6 +4,7 @@ import dagger.Subcomponent;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
 import jp.rei.andou.familybudget.di.scopes.SplashScreenScope;
 import jp.rei.andou.familybudget.presentation.views.SplashActivity;
+import jp.rei.andou.familybudget.presentation.views.SplashContract;
 
 @Subcomponent(modules = SplashModule.class)
 @SplashScreenScope
@@ -11,4 +12,5 @@ public interface SplashComponent {
 
     void inject(SplashActivity activity);
 
+    void inject(SplashContract.SplashPresenter presenter);
 }
