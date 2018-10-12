@@ -7,14 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.presentation.App;
-import lombok.Getter;
+import jp.rei.andou.familybudget.presentation.presenters.SplashPresenter;
 
-import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashPresenter;
 import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashView;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
 
-    @Getter
     @Inject
     SplashPresenter presenter;
 
@@ -23,6 +21,11 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         super.onCreate(savedInstanceState);
         ((App) getApplicationContext()).inject(this);
         presenter.bindView(this);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         presenter.onReadyToStart();
     }
 

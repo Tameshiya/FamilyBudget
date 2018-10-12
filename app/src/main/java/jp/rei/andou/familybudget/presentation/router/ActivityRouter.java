@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.presentation.App;
 
-public class ActivityRouter implements ActivityNavigator, Application.ActivityLifecycleCallbacks{
+public class ActivityRouter implements ActivityNavigator, Application.ActivityLifecycleCallbacks {
 
     private final Deque<WeakReference<? extends Activity>> screens = new ConcurrentLinkedDeque<>();
     private final App applicationContext;
@@ -93,7 +93,7 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        screens.add(new WeakReference<>(activity));
+        registerScreen(activity);
     }
 
     @Override

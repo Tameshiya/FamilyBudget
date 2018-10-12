@@ -15,12 +15,6 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public Context provideApplicationContext(Context applicationContext) {
-        return applicationContext;
-    }
-
-    @Singleton
-    @Provides
     public ActivityNavigator provideActivityNavigator(Context applicationContext) {
         return new ActivityRouter(((App) applicationContext));
     }

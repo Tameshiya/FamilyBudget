@@ -70,7 +70,7 @@ public class ComponentsManager {
                 splashComponent
         );
         splashComponent.inject(splashActivity);
-        splashComponent.inject(splashActivity.getPresenter()); //needed some annotation like @IntoMap for injecting MVP components
+//        splashComponent.inject(splashActivity.getPresenter()); //needed some annotation like @IntoMap for injecting MVP components
     }
 
     public void inject(OnboardingActivity activity) {
