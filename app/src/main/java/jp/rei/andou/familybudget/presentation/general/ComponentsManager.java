@@ -11,7 +11,6 @@ import jp.rei.andou.familybudget.di.components.OnboardingComponent;
 import jp.rei.andou.familybudget.di.components.PaymentsComponent;
 import jp.rei.andou.familybudget.di.components.SplashComponent;
 import jp.rei.andou.familybudget.di.modules.MainModule;
-import jp.rei.andou.familybudget.di.modules.OnboardingModule;
 import jp.rei.andou.familybudget.di.modules.PaymentsModule;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
 import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
@@ -70,11 +69,12 @@ public class ComponentsManager {
                 splashComponent
         );
         splashComponent.inject(splashActivity);
-//        splashComponent.inject(splashActivity.getPresenter()); //needed some annotation like @IntoMap for injecting MVP components
     }
 
     public void inject(OnboardingActivity activity) {
-        OnboardingComponent onboardingComponent = appComponent.plus(new OnboardingModule());
+        OnboardingComponent onboardingComponent = appComponent.getOnboardingBuilder()
+                                                              .bindActivity(activity)
+                                                              .build();
         onboardingComponentReference = updateComponentIfNeeded(
                 onboardingComponentReference,
                 onboardingComponent

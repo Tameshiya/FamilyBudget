@@ -8,7 +8,6 @@ import dagger.BindsInstance;
 import dagger.Component;
 import jp.rei.andou.familybudget.di.modules.AppModule;
 import jp.rei.andou.familybudget.di.modules.MainModule;
-import jp.rei.andou.familybudget.di.modules.OnboardingModule;
 import jp.rei.andou.familybudget.di.modules.PaymentsModule;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
 import jp.rei.andou.familybudget.presentation.App;
@@ -23,7 +22,9 @@ public interface AppComponent {
 
     SplashComponent plus(SplashModule splashModule);
 
-    OnboardingComponent plus(OnboardingModule onboadingModule);
+//    OnboardingComponent plus(OnboardingModule onboadingModule);
+
+    OnboardingComponent.Builder getOnboardingBuilder();
 
     void inject(App app);
 

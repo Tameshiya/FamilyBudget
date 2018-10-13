@@ -7,14 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.presentation.App;
-import jp.rei.andou.familybudget.presentation.presenters.SplashPresenter;
 
 import static jp.rei.andou.familybudget.presentation.views.SplashContract.SplashView;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Inject
-    SplashPresenter presenter;
+    SplashContract.SplashPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -28,8 +28,8 @@ public class OnboardingModule {
 
     @Provides
     @OnboardingScope
-    public OnboardingContract.OnboardingPresenter providePresenter(OnboardingInteractor interactor) {
-        return new OnboardingPresenter(interactor);
+    public OnboardingContract.OnboardingPresenter providePresenter(OnboardingPresenter presenter) {
+        return presenter;
     }
 
 

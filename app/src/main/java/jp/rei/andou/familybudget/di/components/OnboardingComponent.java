@@ -1,5 +1,6 @@
 package jp.rei.andou.familybudget.di.components;
 
+import dagger.BindsInstance;
 import dagger.Subcomponent;
 import jp.rei.andou.familybudget.di.modules.OnboardingModule;
 import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
@@ -11,4 +12,10 @@ public interface OnboardingComponent {
 
     void inject(OnboardingActivity activity);
 
+    @Subcomponent.Builder
+    interface Builder {
+        @BindsInstance
+        Builder bindActivity(OnboardingActivity activity);
+        OnboardingComponent build();
+    }
 }
