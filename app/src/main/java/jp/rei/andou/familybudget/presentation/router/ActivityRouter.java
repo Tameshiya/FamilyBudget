@@ -5,22 +5,18 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import javax.inject.Inject;
-
-import jp.rei.andou.familybudget.presentation.App;
-
 public class ActivityRouter implements ActivityNavigator, Application.ActivityLifecycleCallbacks {
 
     private final Deque<WeakReference<? extends Activity>> screens = new ConcurrentLinkedDeque<>();
-    private final App applicationContext;
+    private final Application applicationContext;
 
-    @Inject
-    public ActivityRouter(App applicationContext) {
+    public ActivityRouter(Application applicationContext) {
         this.applicationContext = applicationContext;
         applicationContext.registerActivityLifecycleCallbacks(this);
     }
@@ -94,35 +90,38 @@ public class ActivityRouter implements ActivityNavigator, Application.ActivityLi
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         registerScreen(activity);
+        Log.d("onCreate", "called");
+
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-
+        Log.d("onStart", "called");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        Log.d("onResume", "called");
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        Log.d("onPause", "called");
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-
+        Log.d("onStop", "called");
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
+        Log.d("onSaveInstanceState", "called");
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
+        Log.d("onDestroy", "called");
         destroyScreen(activity);
     }
 

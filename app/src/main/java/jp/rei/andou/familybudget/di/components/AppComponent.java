@@ -11,6 +11,7 @@ import jp.rei.andou.familybudget.di.modules.MainModule;
 import jp.rei.andou.familybudget.di.modules.OnboardingModule;
 import jp.rei.andou.familybudget.di.modules.PaymentsModule;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
+import jp.rei.andou.familybudget.presentation.App;
 
 @Component(modules = AppModule.class)
 @Singleton
@@ -24,10 +25,12 @@ public interface AppComponent {
 
     OnboardingComponent plus(OnboardingModule onboadingModule);
 
+    void inject(App app);
+
     @Component.Builder
     interface Builder {
         @BindsInstance
-        Builder appModule(Context applicationContext);
+        Builder appContext(Context applicationContext);
         AppComponent build();
     }
 }

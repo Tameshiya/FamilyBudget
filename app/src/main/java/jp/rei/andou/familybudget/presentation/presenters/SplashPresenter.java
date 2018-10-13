@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import jp.rei.andou.familybudget.domain.splash.SplashInteractor;
 import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 import jp.rei.andou.familybudget.presentation.views.MainActivity;
+import jp.rei.andou.familybudget.presentation.views.OnboardingActivity;
 import jp.rei.andou.familybudget.presentation.views.SplashContract;
 
 public class SplashPresenter extends SplashContract.SplashPresenter {
@@ -23,7 +24,7 @@ public class SplashPresenter extends SplashContract.SplashPresenter {
         if (interactor.hasProfileActive()) {
             navigator.replaceWith(MainActivity.class);
         } else {
-//            navigator.replaceWith(OnboardingActivity.class);
+            navigator.replaceWith(OnboardingActivity.class);
         }
     }
 
