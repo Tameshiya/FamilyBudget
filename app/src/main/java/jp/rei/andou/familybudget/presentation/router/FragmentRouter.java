@@ -1,12 +1,14 @@
 package jp.rei.andou.familybudget.presentation.router;
 
 
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import java.lang.ref.WeakReference;
 import java.util.Deque;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import jp.rei.andou.familybudget.R;
@@ -15,6 +17,8 @@ public class FragmentRouter implements FragmentNavigator {
 
     private final FragmentManager fragmentManager;
     private final Deque<WeakReference<Fragment>> fragments = new ConcurrentLinkedDeque<>();
+    @IdRes
+    private final int containerId = R.id.container;
 
     public FragmentRouter(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -44,14 +48,14 @@ public class FragmentRouter implements FragmentNavigator {
     public void newScreen(Fragment fragment) {
         fragments.add(new WeakReference<>(fragment));
         fragmentManager.beginTransaction()
-                       .add(R.id.container, fragment)
+                       .add(containerId, fragment)
                        .commit();
     }
 
     @Override
     public void replaceWith(Fragment fragment) {
         fragmentManager.beginTransaction()
-                       .replace(R.id.container, fragment)
+                       .replace(containerId, fragment)
                        .commitAllowingStateLoss();
     }
 
@@ -67,9 +71,19 @@ public class FragmentRouter implements FragmentNavigator {
             }
         }
         if (stackRootFragment != null) {
-            transaction.add(R.id.container, stackRootFragment)
+            transaction.add(containerId, stackRootFragment)
                        .commitAllowingStateLoss();
             fragments.add(new WeakReference<>(stackRootFragment));
         }
+    }
+
+    @Override
+    public void addMultipleFragments(List<Fragment> fragments) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        for (Fragment fragment : fragments) {
+            this.fragments.add(new WeakReference<>(fragment));
+            transaction.add(containerId, fragment);
+        }
+        transaction.commitAllowingStateLoss();
     }
 }

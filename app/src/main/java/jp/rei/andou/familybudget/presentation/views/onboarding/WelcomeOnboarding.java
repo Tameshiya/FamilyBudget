@@ -1,4 +1,4 @@
-package jp.rei.andou.familybudget.presentation.views;
+package jp.rei.andou.familybudget.presentation.views.onboarding;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

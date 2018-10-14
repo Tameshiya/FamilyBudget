@@ -17,9 +17,9 @@ import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
 import jp.rei.andou.familybudget.di.scopes.PaymentsScope;
 import jp.rei.andou.familybudget.di.scopes.SplashScreenScope;
 import jp.rei.andou.familybudget.presentation.views.MainActivity;
-import jp.rei.andou.familybudget.presentation.views.OnboardingActivity;
 import jp.rei.andou.familybudget.presentation.views.PaymentsFragment;
 import jp.rei.andou.familybudget.presentation.views.SplashActivity;
+import jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingActivity;
 
 // TODO: Decouple this large manager class to many small or something like decoupled class
 // TODO: In this way there is possibility to store componentsManagers in Map with activity as key and uniform interface as value

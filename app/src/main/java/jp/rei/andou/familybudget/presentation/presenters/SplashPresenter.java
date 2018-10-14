@@ -5,12 +5,12 @@ import javax.inject.Inject;
 import jp.rei.andou.familybudget.domain.splash.SplashInteractor;
 import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 import jp.rei.andou.familybudget.presentation.views.MainActivity;
-import jp.rei.andou.familybudget.presentation.views.OnboardingActivity;
 import jp.rei.andou.familybudget.presentation.views.SplashContract;
+import jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingActivity;
 
 public class SplashPresenter extends SplashContract.SplashPresenter {
 
-    ActivityNavigator navigator;
+    private final ActivityNavigator navigator;
     private final SplashInteractor interactor;
 
     @Inject
@@ -27,5 +27,4 @@ public class SplashPresenter extends SplashContract.SplashPresenter {
             navigator.replaceWith(OnboardingActivity.class);
         }
     }
-
 }

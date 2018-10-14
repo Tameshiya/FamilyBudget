@@ -1,10 +1,8 @@
-package jp.rei.andou.familybudget.presentation.views;
+package jp.rei.andou.familybudget.presentation.views.onboarding;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -14,11 +12,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.rei.andou.familybudget.R;
 import jp.rei.andou.familybudget.presentation.App;
+import jp.rei.andou.familybudget.presentation.adapters.OnboardingPagerAdapter;
 import jp.rei.andou.familybudget.presentation.presenters.OnboardingPresenter;
 
-import static jp.rei.andou.familybudget.presentation.views.OnboardingContract.OnboardingView;
-
-public class OnboardingActivity extends AppCompatActivity implements OnboardingView {
+public class OnboardingActivity extends AppCompatActivity implements OnboardingContract.OnboardingView {
 
     @Inject
     OnboardingPresenter presenter;
@@ -33,26 +30,19 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingV
         setContentView(R.layout.onboarding__container);
         ((App) getApplication()).inject(this);
         ButterKnife.bind(this);
+        presenter.bindView(this);
         selector.setupWithViewPager(viewPager, true);
-        //REMOVE BELLOW's SHIT!!!!!!!!!!!
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-
-            @Override
-            public Fragment getItem(int position) {
-                return position == 0 ? new WelcomeOnboarding() : new Fragment();
-            }
-
-            @Override
-            public int getCount() {
-                return 2;
-            }
-        });
     }
 
 //    @OnClick(R.)
     @Override
     public void onNextPressed() {
 
+    }
+
+    @Override
+    public void setupAdapter(OnboardingPagerAdapter adapter) {
+        viewPager.setAdapter(adapter);
     }
 
     @Override
