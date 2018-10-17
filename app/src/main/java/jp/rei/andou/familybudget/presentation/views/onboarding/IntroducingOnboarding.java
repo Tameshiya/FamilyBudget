@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jp.rei.andou.familybudget.R;
+import jp.rei.andou.familybudget.presentation.App;
 
 public class IntroducingOnboarding extends Fragment { //todo implements MeetingOnboardingContract.View...
 
@@ -16,5 +17,11 @@ public class IntroducingOnboarding extends Fragment { //todo implements MeetingO
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.meeting, container, false);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((App) getContext().getApplicationContext()).inject(this);
     }
 }

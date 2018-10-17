@@ -22,9 +22,9 @@ public interface AppComponent {
 
     SplashComponent plus(SplashModule splashModule);
 
-//    OnboardingComponent plus(OnboardingModule onboadingModule);
+//    IntroducingComponent plus(IntroducingModule onboadingModule);
 
-    OnboardingComponent.Builder getOnboardingBuilder();
+    IntroducingComponent.Builder getOnboardingBuilder();
 
     void inject(App app);
 

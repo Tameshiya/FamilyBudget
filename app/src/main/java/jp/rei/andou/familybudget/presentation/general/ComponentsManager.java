@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import jp.rei.andou.familybudget.di.components.AppComponent;
+import jp.rei.andou.familybudget.di.components.IntroducingComponent;
 import jp.rei.andou.familybudget.di.components.MainComponent;
-import jp.rei.andou.familybudget.di.components.OnboardingComponent;
 import jp.rei.andou.familybudget.di.components.PaymentsComponent;
 import jp.rei.andou.familybudget.di.components.SplashComponent;
 import jp.rei.andou.familybudget.di.modules.MainModule;
@@ -19,6 +19,7 @@ import jp.rei.andou.familybudget.di.scopes.SplashScreenScope;
 import jp.rei.andou.familybudget.presentation.views.MainActivity;
 import jp.rei.andou.familybudget.presentation.views.PaymentsFragment;
 import jp.rei.andou.familybudget.presentation.views.SplashActivity;
+import jp.rei.andou.familybudget.presentation.views.onboarding.IntroducingOnboarding;
 import jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingActivity;
 
 // TODO: Decouple this large manager class to many small or something like decoupled class
@@ -40,7 +41,7 @@ public class ComponentsManager {
     @SplashScreenScope
     private WeakReference<SplashComponent> splashComponentReference;
     @OnboardingScope
-    private WeakReference<OnboardingComponent> onboardingComponentReference;
+    private WeakReference<IntroducingComponent> onboardingComponentReference;
 
     @Inject
     public ComponentsManager(AppComponent appComponent) {
@@ -72,14 +73,14 @@ public class ComponentsManager {
     }
 
     public void inject(OnboardingActivity activity) {
-        OnboardingComponent onboardingComponent = appComponent.getOnboardingBuilder()
-                                                              .bindActivity(activity)
-                                                              .build();
+        IntroducingComponent introducingComponent = appComponent.getOnboardingBuilder()
+                                                                .bindActivity(activity)
+                                                                .build();
         onboardingComponentReference = updateComponentIfNeeded(
                 onboardingComponentReference,
-                onboardingComponent
+                introducingComponent
         );
-        onboardingComponent.inject(activity);
+        introducingComponent.inject(activity);
     }
 
     public void inject(PaymentsFragment fragment) {
@@ -89,6 +90,10 @@ public class ComponentsManager {
                 paymentsComponent
         );
         paymentsComponent.inject(fragment);
+    }
+
+    public void inject(IntroducingOnboarding onboarding) {
+//        IntroducingComponent component = appComponent.plus()
     }
 
 }
