@@ -1,22 +1,14 @@
 package jp.rei.andou.familybudget.di.components;
 
-import dagger.BindsInstance;
 import dagger.Subcomponent;
 import jp.rei.andou.familybudget.di.modules.IntroducingModule;
-import jp.rei.andou.familybudget.di.modules.PagerModule;
-import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
-import jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingActivity;
+import jp.rei.andou.familybudget.di.scopes.IntroducingScope;
+import jp.rei.andou.familybudget.presentation.views.onboarding.IntroducingOnboarding;
 
-@Subcomponent(modules = {IntroducingModule.class, PagerModule.class})
-@OnboardingScope
+@Subcomponent(modules = IntroducingModule.class)
+@IntroducingScope
 public interface IntroducingComponent {
 
-    void inject(OnboardingActivity activity);
+    void inject(IntroducingOnboarding fragment);
 
-    @Subcomponent.Builder
-    interface Builder {
-        @BindsInstance
-        Builder bindActivity(OnboardingActivity activity);
-        IntroducingComponent build();
-    }
 }

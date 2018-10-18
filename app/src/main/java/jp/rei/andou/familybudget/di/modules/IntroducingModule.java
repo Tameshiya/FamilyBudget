@@ -1,44 +1,23 @@
 package jp.rei.andou.familybudget.di.modules;
 
-import android.support.v4.app.FragmentManager;
-
 import dagger.Module;
 import dagger.Provides;
-import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
-import jp.rei.andou.familybudget.domain.onboarding.DatabaseOnboardingInteractor;
-import jp.rei.andou.familybudget.domain.onboarding.OnboardingInteractor;
+import jp.rei.andou.familybudget.di.scopes.IntroducingScope;
 import jp.rei.andou.familybudget.presentation.presenters.OnboardingPresenter;
-import jp.rei.andou.familybudget.presentation.presenters.OnboardingPresenterImpl;
-import jp.rei.andou.familybudget.presentation.router.FragmentNavigator;
-import jp.rei.andou.familybudget.presentation.router.FragmentRouter;
-import jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingActivity;
 
-@Module
+@Module(includes = OnboardingModule.class)
 public class IntroducingModule {
 
     @Provides
-    @OnboardingScope
-    public FragmentNavigator provideFragmentNavigator(FragmentManager fragmentManager) {
-        return new FragmentRouter(fragmentManager);
+    @IntroducingScope
+    public int provideSomeInt() {
+        return 1;
     }
 
     @Provides
-    @OnboardingScope
-    public FragmentManager provideFragmentManager(OnboardingActivity activity) {
-        return activity.getSupportFragmentManager();
+    @IntroducingScope
+    public String provideFragmentNavigator(OnboardingPresenter manager) {
+        return "";
     }
-
-    @Provides
-    @OnboardingScope
-    public OnboardingInteractor provideInteractor() {
-        return new DatabaseOnboardingInteractor();
-    }
-
-    @Provides
-    @OnboardingScope
-    public OnboardingPresenter providePresenter(OnboardingPresenterImpl presenter) {
-        return presenter;
-    }
-
 
 }
