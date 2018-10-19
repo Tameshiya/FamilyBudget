@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.di.components.AppComponent;
 import jp.rei.andou.familybudget.di.components.DaggerAppComponent;
+import jp.rei.andou.familybudget.di.modules.DatabaseModule;
 import jp.rei.andou.familybudget.presentation.general.ComponentsManager;
 import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class App extends Application {
     private AppComponent buildComponent() {
         return DaggerAppComponent.builder()
                 .appContext(this)
-//                .databaseModule(new DatabaseModule(this))
+                .databaseModule(new DatabaseModule(this))
 //                .sessionModule(new SessionModule())
                 .build();
     }

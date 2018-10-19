@@ -23,7 +23,7 @@ public class DatabaseModule {
     private final FinanceDatabase database;
 
     public DatabaseModule(Context context) {
-        fetchAssetDatabase(context);
+//        fetchAssetDatabase(context);
         this.database = Room.databaseBuilder(
                 context,
                 FinanceDatabase.class,

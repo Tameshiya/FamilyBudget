@@ -16,6 +16,6 @@ public class FamilyAccount {
     private int id;
     private String name;
     @ForeignKey(entity = Salary.class, childColumns = "salaryId", parentColumns = "id")
-    private int salaryId;
+    private long salaryId;
 
 }

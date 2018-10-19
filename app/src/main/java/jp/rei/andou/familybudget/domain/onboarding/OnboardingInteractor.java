@@ -1,11 +1,13 @@
 package jp.rei.andou.familybudget.domain.onboarding;
 
+import io.reactivex.Single;
+
 public interface OnboardingInteractor {
 
-    void register(String family, long chokin);
+    Single<Long> register(String family, long chokin);
 
     boolean validateFamily(String family);
 
-    boolean validateChokin(long amount);
+    boolean validateDeposit(long amount);
 
 }

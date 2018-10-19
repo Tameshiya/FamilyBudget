@@ -20,7 +20,7 @@ public class Payment {
     @ForeignKey(entity = PaymentsType.class, childColumns = "typeId", parentColumns = "id")
     private int typeId;
     private String name;
-    private String desctiption;
+    private String description;
     @ForeignKey(entity = FamilyAccount.class, childColumns = "accountId", parentColumns = "id")
     private long accountId;
     private Date planDate;

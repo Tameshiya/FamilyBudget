@@ -1,10 +1,34 @@
 package jp.rei.andou.familybudget.domain.onboarding;
 
+import javax.inject.Inject;
+
+import io.reactivex.Single;
+import jp.rei.andou.familybudget.data.database.entites.FamilyAccount;
+import jp.rei.andou.familybudget.data.database.entites.Salary;
+import jp.rei.andou.familybudget.data.repositories.onboarding.OnboardingRepository;
+
 public class DatabaseOnboardingInteractor implements OnboardingInteractor {
 
-    @Override
-    public void register(String family, long chokin) {
+    private final OnboardingRepository onboardingRepository;
 
+    @Inject
+    public DatabaseOnboardingInteractor(OnboardingRepository repository) {
+        this.onboardingRepository = repository;
+    }
+
+    @Override
+    public Single<Long> register(String family, long deposit) {
+        //todo ToSalaryConverter & add currencyCode to layout
+        Salary salary = new Salary();
+        salary.setUnits(deposit);
+        salary.setSubunits(deposit);
+        return onboardingRepository.addAccountSalary(salary)
+                            .map(salaryId -> {
+                                FamilyAccount familyAccount = new FamilyAccount();
+                                familyAccount.setName(family);
+                                familyAccount.setSalaryId(salaryId);
+                                return familyAccount;
+                            }).flatMap(onboardingRepository::addNewFamilyAccount);
     }
 
     @Override
@@ -13,7 +37,7 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
     }
 
     @Override
-    public boolean validateChokin(long amount) {
+    public boolean validateDeposit(long amount) {
         return false;
     }
 }
