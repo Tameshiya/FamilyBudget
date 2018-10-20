@@ -4,10 +4,16 @@ import android.support.annotation.StringRes;
 
 public interface BaseView {
 
-    void showToast(@StringRes int message, int duration);
+    default void showToast(@StringRes int message, int duration) {
+        //not implemented yet
+    }
 
-    void showToast(String message, int duration);
+    default void showToast(String message, int duration) {
+        //not implemented yet
+    }
 
-    void showSnackbar(@StringRes int message, int duration);
+    default void showSnackbar(@StringRes int message, int duration) {
+        //not implemented yet
+    }
 
 }

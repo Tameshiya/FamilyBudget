@@ -11,7 +11,6 @@ import jp.rei.andou.familybudget.R;
 
 public class WelcomeOnboarding extends Fragment {
 
-    //todo bind presenter
 
     @Nullable
     @Override
