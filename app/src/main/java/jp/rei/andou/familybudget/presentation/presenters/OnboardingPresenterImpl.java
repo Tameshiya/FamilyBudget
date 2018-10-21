@@ -8,6 +8,7 @@ import jp.rei.andou.familybudget.presentation.router.FragmentNavigator;
 
 import static jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingContract.OnboardingView;
 
+//todo Refactor to "SmartRouter" implementation instead of this SUPER-presenter implementation 
 public class OnboardingPresenterImpl extends OnboardingPresenter {
 
     private final FragmentNavigator navigator;

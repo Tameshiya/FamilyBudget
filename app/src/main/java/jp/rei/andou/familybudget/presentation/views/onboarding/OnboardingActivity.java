@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.rei.andou.familybudget.R;
 import jp.rei.andou.familybudget.presentation.App;
 import jp.rei.andou.familybudget.presentation.adapters.OnboardingPagerAdapter;
@@ -29,15 +30,15 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onboarding__container);
         ((App) getApplication()).inject(this);
-        ButterKnife.bind(this);
         presenter.bindView(this);
+        ButterKnife.bind(this);
         selector.setupWithViewPager(viewPager, true);
     }
 
-//    @OnClick(R.)
+    @OnClick(R.id.next)
     @Override
     public void onNextPressed() {
-
+        presenter.toNextStep();
     }
 
     @Override
@@ -45,18 +46,4 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
         viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void showToast(int message, int duration) {
-
-    }
-
-    @Override
-    public void showToast(String message, int duration) {
-
-    }
-
-    @Override
-    public void showSnackbar(int message, int duration) {
-
-    }
 }
