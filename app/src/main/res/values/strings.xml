@@ -5,4 +5,5 @@
     <string name="introduce">Introduce yourself please</string>
     <string name="name">Family name</string>
     <string name="salary">Salary</string>
+    <string name="loginAttemptIsFailed">Произошла ошибка при авторизации</string>
 </resources>

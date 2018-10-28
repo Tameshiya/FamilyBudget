@@ -47,6 +47,11 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
     }
 
     @Override
+    public void enableNextButton(boolean enable) {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ((App) getApplicationContext()).destroyComponent(this);

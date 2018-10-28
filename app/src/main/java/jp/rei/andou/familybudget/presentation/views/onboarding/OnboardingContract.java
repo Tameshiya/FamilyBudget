@@ -10,6 +10,7 @@ public interface OnboardingContract {
     interface OnboardingView extends BaseView {
         void onNextPressed();
         void setupAdapter(OnboardingPagerAdapter adapter);
+        void enableNextButton(boolean enable);
     }
 
     abstract class OnboardingPagerAdapterPresenter {

@@ -1,5 +1,7 @@
 package jp.rei.andou.familybudget.domain.onboarding;
 
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -36,12 +38,16 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
     }
 
     @Override
-    public boolean validateFamily(String family) {
-        return false;
+    public boolean validateFamily(CharSequence family) {
+        return Pattern.compile("[a-z]{5,}")
+                      .matcher(family)
+                      .find();
     }
 
     @Override
-    public boolean validateDeposit(long amount) {
-        return false;
+    public boolean validateDeposit(CharSequence amount) {
+        return Pattern.compile("[1-9][0-9]*")
+                      .matcher(amount)
+                      .find();
     }
 }

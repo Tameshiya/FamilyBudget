@@ -4,10 +4,10 @@ import io.reactivex.Single;
 
 public interface OnboardingInteractor {
 
-    Single<Long> register(String family, long chokin);
+    Single<Long> register(String family, long deposit);
 
-    boolean validateFamily(String family);
+    boolean validateFamily(CharSequence family);
 
-    boolean validateDeposit(long amount);
+    boolean validateDeposit(CharSequence amount);
 
 }

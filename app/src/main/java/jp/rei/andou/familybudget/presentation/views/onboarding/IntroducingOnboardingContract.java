@@ -17,8 +17,9 @@ public interface IntroducingOnboardingContract {
     }
 
     abstract class IntroducingPresenter extends Presenter<IntroducingView> {
-        public abstract void listenFamilyName(Observable<String> familyName);
-        public abstract void listenDeposit(Observable<String> deposit);
+        public abstract void listenFamilyName(Observable<CharSequence> familyNameListener);
+        public abstract void listenDeposit(Observable<CharSequence> deposit);
+        public abstract void login(String familyName, long deposit);
     }
 
 }

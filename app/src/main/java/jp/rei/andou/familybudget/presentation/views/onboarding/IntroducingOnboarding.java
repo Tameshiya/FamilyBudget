@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -50,16 +52,18 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
         super.onViewCreated(view, savedInstanceState);
         ((App) getContext().getApplicationContext()).inject(this);
         presenter.bindView(this);
+        presenter.listenFamilyName(RxTextView.textChanges(familyName).skipInitialValue());
+        presenter.listenDeposit(RxTextView.textChanges(familyDeposit).skipInitialValue());
     }
 
     @Override
     public void showInputVerifiedStamp() {
-        textInputLayouts[0].setVisibility(View.VISIBLE);
+        inputVerifiedSign.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showInvalidInputStamp() {
-        textInputLayouts[1].setVisibility(View.VISIBLE);
+        invalidInputSign.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -84,7 +88,8 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
 
     @Override
     public void hideAnyStamp() {
-        ButterKnife.apply(textInputLayouts, (View view, int index) -> view.setVisibility(View.INVISIBLE));
+        inputVerifiedSign.setVisibility(View.INVISIBLE);
+        invalidInputSign.setVisibility(View.INVISIBLE);
     }
 
     @Override

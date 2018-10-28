@@ -4,19 +4,19 @@ import javax.inject.Inject;
 
 import jp.rei.andou.familybudget.domain.onboarding.OnboardingInteractor;
 import jp.rei.andou.familybudget.presentation.adapters.OnboardingPagerAdapter;
-import jp.rei.andou.familybudget.presentation.router.FragmentNavigator;
+import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 
 import static jp.rei.andou.familybudget.presentation.views.onboarding.OnboardingContract.OnboardingView;
 
 //todo Refactor to "SmartRouter" implementation instead of this SUPER-presenter implementation 
 public class OnboardingPresenterImpl extends OnboardingPresenter {
 
-    private final FragmentNavigator navigator;
+    private final ActivityNavigator navigator;
     private final OnboardingInteractor interactor;
     private final OnboardingPagerAdapter pagerAdapter;
 
     @Inject
-    public OnboardingPresenterImpl(OnboardingInteractor interactor, FragmentNavigator navigator,
+    public OnboardingPresenterImpl(OnboardingInteractor interactor, ActivityNavigator navigator,
                                    OnboardingPagerAdapter pagerAdapter) {
         //todo if constructor parameters number become greater than 3 it's will be necessary to refactoring for composited parameters
         this.interactor = interactor;

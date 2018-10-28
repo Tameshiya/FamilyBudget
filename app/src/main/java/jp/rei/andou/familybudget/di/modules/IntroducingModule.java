@@ -6,7 +6,7 @@ import jp.rei.andou.familybudget.di.scopes.IntroducingScope;
 import jp.rei.andou.familybudget.presentation.presenters.IntroducingPresenterImpl;
 import jp.rei.andou.familybudget.presentation.views.onboarding.IntroducingOnboardingContract.IntroducingPresenter;
 
-@Module(/*includes = OnboardingModule.class*/)
+@Module
 public class IntroducingModule {
 
     @Provides
