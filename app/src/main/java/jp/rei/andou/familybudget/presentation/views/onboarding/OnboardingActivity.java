@@ -29,9 +29,9 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onboarding__container);
+        ButterKnife.bind(this);
         ((App) getApplication()).inject(this);
         presenter.bindView(this);
-        ButterKnife.bind(this);
         selector.setupWithViewPager(viewPager, true);
     }
 
@@ -46,4 +46,9 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
         viewPager.setAdapter(adapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((App) getApplicationContext()).destroyComponent(this);
+    }
 }

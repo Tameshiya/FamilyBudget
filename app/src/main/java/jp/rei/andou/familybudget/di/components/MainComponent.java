@@ -1,5 +1,6 @@
 package jp.rei.andou.familybudget.di.components;
 
+import dagger.BindsInstance;
 import dagger.Subcomponent;
 import jp.rei.andou.familybudget.di.modules.MainModule;
 import jp.rei.andou.familybudget.di.scopes.ContainerScope;
@@ -10,5 +11,12 @@ import jp.rei.andou.familybudget.presentation.views.MainActivity;
 public interface MainComponent {
 
     void inject(MainActivity activity);
+
+    @Subcomponent.Builder
+    interface Builder {
+        @BindsInstance
+        Builder bindActivity(MainActivity activity);
+        MainComponent build();
+    }
 
 }

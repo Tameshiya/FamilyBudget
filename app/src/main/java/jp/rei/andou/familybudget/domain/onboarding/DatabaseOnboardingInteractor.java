@@ -22,13 +22,17 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
         Salary salary = new Salary();
         salary.setUnits(deposit);
         salary.setSubunits(deposit);
-        return onboardingRepository.addAccountSalary(salary)
-                            .map(salaryId -> {
-                                FamilyAccount familyAccount = new FamilyAccount();
-                                familyAccount.setName(family);
-                                familyAccount.setSalaryId(salaryId);
-                                return familyAccount;
-                            }).flatMap(onboardingRepository::addNewFamilyAccount);
+        return Single.fromCallable(() -> onboardingRepository.addAccountSalary(salary))
+                     .map(salaryId -> {
+                         FamilyAccount familyAccount = new FamilyAccount();
+                         familyAccount.setName(family);
+                         familyAccount.setSalaryId(salaryId);
+                         return familyAccount;
+                     }).flatMap(
+                        familyAccount -> Single.fromCallable(
+                                () -> onboardingRepository.addNewFamilyAccount(familyAccount)
+                        )
+                    );
     }
 
     @Override

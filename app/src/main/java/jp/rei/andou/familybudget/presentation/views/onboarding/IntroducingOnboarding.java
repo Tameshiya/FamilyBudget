@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import javax.inject.Inject;
 
@@ -29,9 +30,9 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
     @BindView(R.id.familyDeposit)
     EditText familyDeposit;
     @BindView(R.id.kakunin_sign)
-    EditText inputVerifiedSign;
+    ImageView inputVerifiedSign;
     @BindView(R.id.kinshi_sign)
-    EditText invalidInputSign;
+    ImageView invalidInputSign;
     @BindViews({R.id.name_layout, R.id.deposit_layout})
     TextInputLayout[] textInputLayouts;
 
@@ -84,5 +85,11 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
     @Override
     public void hideAnyStamp() {
         ButterKnife.apply(textInputLayouts, (View view, int index) -> view.setVisibility(View.INVISIBLE));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((App) getActivity().getApplicationContext()).destroyComponent(this);
     }
 }

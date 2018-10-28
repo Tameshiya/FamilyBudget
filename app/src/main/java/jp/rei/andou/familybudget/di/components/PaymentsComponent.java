@@ -7,7 +7,7 @@ import jp.rei.andou.familybudget.presentation.views.PaymentsFragment;
 
 @Subcomponent(modules = PaymentsModule.class)
 @PaymentsScope
-public interface PaymentsComponent extends MainComponent {
+public interface PaymentsComponent {
 
     void inject(PaymentsFragment fragment);
 

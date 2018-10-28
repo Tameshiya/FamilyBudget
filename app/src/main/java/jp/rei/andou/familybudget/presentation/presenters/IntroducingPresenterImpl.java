@@ -1,5 +1,7 @@
 package jp.rei.andou.familybudget.presentation.presenters;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import jp.rei.andou.familybudget.domain.onboarding.OnboardingInteractor;
 
@@ -10,6 +12,7 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
 
     private final OnboardingInteractor interactor;
 
+    @Inject
     public IntroducingPresenterImpl(OnboardingInteractor interactor) {
         this.interactor = interactor;
     }

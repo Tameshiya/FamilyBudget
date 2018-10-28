@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import jp.rei.andou.familybudget.presentation.App;
-import jp.rei.andou.familybudget.presentation.general.ComponentsManager;
+import jp.rei.andou.familybudget.presentation.general.MainComponentHandler;
 import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 import jp.rei.andou.familybudget.presentation.router.ActivityRouter;
 
@@ -23,8 +23,8 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public ComponentsManager provideComponentManager(Context applicationContext) {
-        return new ComponentsManager(((App) applicationContext).getApplicationComponent());
+    public MainComponentHandler provideComponentManager(Context applicationContext) {
+        return new MainComponentHandler(((App) applicationContext).getApplicationComponent());
     }
 
 }

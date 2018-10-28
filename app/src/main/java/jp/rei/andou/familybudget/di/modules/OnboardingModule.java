@@ -39,7 +39,6 @@ public class OnboardingModule {
     @Provides
     @OnboardingScope
     public OnboardingInteractor provideInteractor(OnboardingRepository repository) {
-        //todo provide AccountDao instead null
         return new DatabaseOnboardingInteractor(repository);
     }
 

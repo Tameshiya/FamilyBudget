@@ -8,8 +8,6 @@ import dagger.BindsInstance;
 import dagger.Component;
 import jp.rei.andou.familybudget.di.modules.AppModule;
 import jp.rei.andou.familybudget.di.modules.DatabaseModule;
-import jp.rei.andou.familybudget.di.modules.IntroducingModule;
-import jp.rei.andou.familybudget.di.modules.MainModule;
 import jp.rei.andou.familybudget.di.modules.PaymentsModule;
 import jp.rei.andou.familybudget.di.modules.SplashModule;
 import jp.rei.andou.familybudget.presentation.App;
@@ -18,7 +16,7 @@ import jp.rei.andou.familybudget.presentation.App;
 @Singleton
 public interface AppComponent {
 
-    MainComponent plus(MainModule mainModule);
+    MainComponent.Builder getMainComponentBuilder();
 
     PaymentsComponent plus(PaymentsModule paymentsModule);
 
@@ -28,7 +26,7 @@ public interface AppComponent {
 
     void inject(App app);
 
-    IntroducingComponent plus(IntroducingModule introducingModule);
+//    OnboardingComponentHandler plus(IntroducingModule introducingModule);
 
     @Component.Builder
     interface Builder {

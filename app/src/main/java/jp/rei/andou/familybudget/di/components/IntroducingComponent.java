@@ -10,5 +10,4 @@ import jp.rei.andou.familybudget.presentation.views.onboarding.IntroducingOnboar
 public interface IntroducingComponent {
 
     void inject(IntroducingOnboarding fragment);
-
 }
