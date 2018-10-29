@@ -1,5 +1,6 @@
 package jp.rei.andou.familybudget.presentation.presenters;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -19,20 +20,27 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
 
     private final OnboardingInteractor interactor;
     private final ActivityNavigator navigator;
-    private final PublishRelay<Integer> validEvents = PublishRelay.create();
+    private final PublishRelay<Boolean> familyNameEvents = PublishRelay.create();
+    private final PublishRelay<Boolean> familyDepositEvents = PublishRelay.create();
 
     @Inject
     public IntroducingPresenterImpl(OnboardingInteractor interactor, ActivityNavigator activityNavigator) {
         this.interactor = interactor;
         this.navigator = activityNavigator;
-        validEvents.buffer(2)
-                   .subscribe(
-                           fieldsIds -> {
-                               if (!fieldsIds.get(0).equals(fieldsIds.get(1))) {
-                                   getViewOrThrow().showInputVerifiedStamp();
-                               }
-                           }, throwable -> {}
-                   );
+        Observable.combineLatest(
+                familyNameEvents,
+                familyDepositEvents,
+                (name, deposit) -> name && deposit
+        ).subscribe(
+                event -> {
+                    if (event) {
+                        getViewOrThrow().showInputVerifiedStamp();
+                    } else {
+                        getViewOrThrow().showInvalidInputStamp();
+                    }
+                },
+                throwable -> Log.e("Verify", throwable.getMessage())
+        );
     }
 
     @Override
@@ -40,10 +48,10 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
         familyNameListener.subscribe(
                 charSequence -> {
                     if (interactor.validateFamily(charSequence)) {
-                        validEvents.accept(1);
+                        familyNameEvents.accept(true);
                     } else {
+                        familyNameEvents.accept(false);
                         // TODO: 29.10.2018  disable next button
-                        getViewOrThrow().hideAnyStamp();
                     }
                 },
                 throwable -> {}
@@ -55,9 +63,9 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
         deposit.subscribe(
                 charSequence -> {
                     if (interactor.validateDeposit(charSequence)) {
-                        validEvents.accept(2);
+                        familyDepositEvents.accept(true);
                     } else {
-                        getViewOrThrow().hideAnyStamp();
+                        familyDepositEvents.accept(false);
                         // TODO: 29.10.2018  disable next button
                     }
                 },

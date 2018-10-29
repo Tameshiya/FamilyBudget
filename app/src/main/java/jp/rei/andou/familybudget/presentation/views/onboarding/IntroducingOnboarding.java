@@ -58,11 +58,13 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
 
     @Override
     public void showInputVerifiedStamp() {
+        hideAnyStamp();
         inputVerifiedSign.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showInvalidInputStamp() {
+        hideAnyStamp();
         invalidInputSign.setVisibility(View.VISIBLE);
     }
 
