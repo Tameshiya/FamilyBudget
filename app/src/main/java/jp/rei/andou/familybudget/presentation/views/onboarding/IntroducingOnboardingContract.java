@@ -14,6 +14,8 @@ public interface IntroducingOnboardingContract {
         void showFamilyDepositInputError(String error);
         void hideFamilyDepositInputError();
         void hideAnyStamp();
+        String getInputtedFamilyName();
+        long getInputtedFamilyDeposit();
     }
 
     abstract class IntroducingPresenter extends Presenter<IntroducingView> {

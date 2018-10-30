@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import jp.rei.andou.familybudget.R;
 import jp.rei.andou.familybudget.domain.onboarding.OnboardingInteractor;
+import jp.rei.andou.familybudget.presentation.model.OnboardingEvent;
 import jp.rei.andou.familybudget.presentation.router.ActivityNavigator;
 import jp.rei.andou.familybudget.presentation.views.MainActivity;
 
@@ -22,11 +23,14 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
     private final ActivityNavigator navigator;
     private final PublishRelay<Boolean> familyNameEvents = PublishRelay.create();
     private final PublishRelay<Boolean> familyDepositEvents = PublishRelay.create();
+    private final PublishRelay<OnboardingEvent> onboardingEvents;
 
     @Inject
-    public IntroducingPresenterImpl(OnboardingInteractor interactor, ActivityNavigator activityNavigator) {
+    public IntroducingPresenterImpl(OnboardingInteractor interactor, ActivityNavigator activityNavigator,
+                                    PublishRelay<OnboardingEvent> onboardingEvents) {
         this.interactor = interactor;
         this.navigator = activityNavigator;
+        this.onboardingEvents = onboardingEvents;
         Observable.combineLatest(
                 familyNameEvents,
                 familyDepositEvents,
@@ -34,13 +38,22 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
         ).subscribe(
                 event -> {
                     if (event) {
+                        onboardingEvents.accept(OnboardingEvent.ENABLE_NEXT_BUTTON);
                         getViewOrThrow().showInputVerifiedStamp();
+
                     } else {
+                        onboardingEvents.accept(OnboardingEvent.DISABLE_NEXT_BUTTON);
                         getViewOrThrow().showInvalidInputStamp();
                     }
                 },
                 throwable -> Log.e("Verify", throwable.getMessage())
         );
+        onboardingEvents.filter(event -> event.equals(OnboardingEvent.NEXT))
+                        .subscribe((event) -> login(
+                                    getViewOrThrow().getInputtedFamilyName(),
+                                    getViewOrThrow().getInputtedFamilyDeposit()
+                                )
+                        );
     }
 
     @Override
@@ -76,7 +89,8 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
     @Override
     public void login(String familyName, long deposit) {
         interactor.register(familyName, deposit)
-                  .subscribe((accountId) -> {
+                  .flatMapCompletable(interactor::saveFamilyReference)
+                  .subscribe(() -> {
                       // TODO: 29.10.2018 save in sharedPreferences
                       navigator.replaceWith(MainActivity.class);
                   }, (throwable -> {

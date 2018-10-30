@@ -95,6 +95,20 @@ public class IntroducingOnboarding extends Fragment implements IntroducingView {
     }
 
     @Override
+    public String getInputtedFamilyName() {
+        return familyName.getText()
+                         .toString();
+    }
+
+    @Override
+    public long getInputtedFamilyDeposit() {
+        return Long.parseLong(
+                familyDeposit.getText()
+                             .toString()
+        );
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         ((App) getActivity().getApplicationContext()).destroyComponent(this);

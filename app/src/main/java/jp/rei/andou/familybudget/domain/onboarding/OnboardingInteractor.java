@@ -1,5 +1,6 @@
 package jp.rei.andou.familybudget.domain.onboarding;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public interface OnboardingInteractor {
@@ -10,4 +11,5 @@ public interface OnboardingInteractor {
 
     boolean validateDeposit(CharSequence amount);
 
+    Completable saveFamilyReference(Long familyId);
 }

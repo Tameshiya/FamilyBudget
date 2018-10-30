@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,8 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
     ViewPager viewPager;
     @BindView(R.id.selector)
     TabLayout selector;
+    @BindView(R.id.next)
+    Button nextButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
 
     @Override
     public void enableNextButton(boolean enable) {
-
+        nextButton.setEnabled(enable);
     }
 
     @Override

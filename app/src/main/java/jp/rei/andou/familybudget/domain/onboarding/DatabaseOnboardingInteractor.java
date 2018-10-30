@@ -4,18 +4,22 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import jp.rei.andou.familybudget.data.database.entites.FamilyAccount;
 import jp.rei.andou.familybudget.data.database.entites.Salary;
 import jp.rei.andou.familybudget.data.repositories.onboarding.OnboardingRepository;
+import jp.rei.andou.familybudget.data.repositories.onboarding.SessionRepository;
 
 public class DatabaseOnboardingInteractor implements OnboardingInteractor {
 
     private final OnboardingRepository onboardingRepository;
+    private final SessionRepository sessionRepository;
 
     @Inject
-    public DatabaseOnboardingInteractor(OnboardingRepository repository) {
+    public DatabaseOnboardingInteractor(OnboardingRepository repository, SessionRepository sessionRepository) {
         this.onboardingRepository = repository;
+        this.sessionRepository = sessionRepository;
     }
 
     @Override
@@ -49,5 +53,10 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
         return Pattern.compile("[1-9][0-9]*")
                       .matcher(amount)
                       .find();
+    }
+
+    @Override
+    public Completable saveFamilyReference(Long familyId) {
+        return sessionRepository.saveCurrentFamily(familyId);
     }
 }

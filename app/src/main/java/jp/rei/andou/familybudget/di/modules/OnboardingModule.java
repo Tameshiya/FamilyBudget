@@ -2,6 +2,8 @@ package jp.rei.andou.familybudget.di.modules;
 
 import android.support.v4.app.FragmentManager;
 
+import com.jakewharton.rxrelay2.PublishRelay;
+
 import dagger.Module;
 import dagger.Provides;
 import jp.rei.andou.familybudget.data.repositories.onboarding.DatabaseOnboardingRepository;
@@ -9,6 +11,7 @@ import jp.rei.andou.familybudget.data.repositories.onboarding.OnboardingReposito
 import jp.rei.andou.familybudget.di.scopes.OnboardingScope;
 import jp.rei.andou.familybudget.domain.onboarding.DatabaseOnboardingInteractor;
 import jp.rei.andou.familybudget.domain.onboarding.OnboardingInteractor;
+import jp.rei.andou.familybudget.presentation.model.OnboardingEvent;
 import jp.rei.andou.familybudget.presentation.presenters.OnboardingPresenter;
 import jp.rei.andou.familybudget.presentation.presenters.OnboardingPresenterImpl;
 import jp.rei.andou.familybudget.presentation.router.FragmentNavigator;
@@ -38,8 +41,8 @@ public class OnboardingModule {
 
     @Provides
     @OnboardingScope
-    public OnboardingInteractor provideInteractor(OnboardingRepository repository) {
-        return new DatabaseOnboardingInteractor(repository);
+    public OnboardingInteractor provideInteractor(DatabaseOnboardingInteractor interactor) {
+        return interactor;
     }
 
     @Provides
@@ -48,5 +51,10 @@ public class OnboardingModule {
         return presenter;
     }
 
+    @Provides
+    @OnboardingScope
+    public PublishRelay<OnboardingEvent> provideOnboardingEvents() {
+        return PublishRelay.create();
+    }
 
 }
