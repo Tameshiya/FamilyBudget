@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import jp.rei.andou.familybudget.data.SchedulersTransformer;
 import jp.rei.andou.familybudget.data.database.entites.FamilyAccount;
 import jp.rei.andou.familybudget.data.database.entites.Salary;
 import jp.rei.andou.familybudget.data.repositories.onboarding.OnboardingRepository;
@@ -29,6 +30,7 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
         salary.setUnits(deposit);
         salary.setSubunits(deposit);
         return Single.fromCallable(() -> onboardingRepository.addAccountSalary(salary))
+                     .compose(SchedulersTransformer.create())
                      .map(salaryId -> {
                          FamilyAccount familyAccount = new FamilyAccount();
                          familyAccount.setName(family);
@@ -37,7 +39,7 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
                      }).flatMap(
                         familyAccount -> Single.fromCallable(
                                 () -> onboardingRepository.addNewFamilyAccount(familyAccount)
-                        )
+                        ).compose(SchedulersTransformer.create())
                     );
     }
 
