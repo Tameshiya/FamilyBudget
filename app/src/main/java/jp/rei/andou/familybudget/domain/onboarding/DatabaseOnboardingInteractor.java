@@ -45,16 +45,16 @@ public class DatabaseOnboardingInteractor implements OnboardingInteractor {
 
     @Override
     public boolean validateFamily(CharSequence family) {
-        return Pattern.compile("[a-z]{5,}")
+        return Pattern.compile("[a-z]{5,}", Pattern.CASE_INSENSITIVE)
                       .matcher(family)
-                      .find();
+                      .matches();
     }
 
     @Override
     public boolean validateDeposit(CharSequence amount) {
-        return Pattern.compile("[1-9][0-9]*")
+        return Pattern.compile("^[1-9][0-9]{4,}")
                       .matcher(amount)
-                      .find();
+                      .matches();
     }
 
     @Override
