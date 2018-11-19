@@ -55,7 +55,7 @@ public class DatabaseOnboardingInteractorTest {
             try {
                 return function.apply(item);
             } catch (Exception e) {
-                throw new RuntimeException("Error occurred on testing of element: " + item);
+                throw new RuntimeException("Error occurred on testing of element: " + item + ".\n" + e.getMessage());
             }
         }
 

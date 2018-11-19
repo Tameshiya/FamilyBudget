@@ -33,6 +33,9 @@ public class OnboardingPresenterImpl extends OnboardingPresenter {
 
     @Override
     public void toNextStep() {
-        onboardingEvents.accept(OnboardingEvent.NEXT);
+        OnboardingEvent event = getViewOrThrow().getCurrentPagePosition() == pagerAdapter.getCount() - 1
+                ? OnboardingEvent.LOGIN : OnboardingEvent.NEXT;
+        onboardingEvents.accept(event);
+        getViewOrThrow().swipeToNextWizard();
     }
 }

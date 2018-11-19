@@ -31,27 +31,38 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
         this.interactor = interactor;
         this.navigator = activityNavigator;
         this.onboardingEvents = onboardingEvents;
-        Observable.combineLatest(
+        init();
+    }
+
+    private void init() {
+        //todo remove this global button disability
+        onboardingEvents.accept(OnboardingEvent.DISABLE_NEXT_BUTTON);
+        //todo 以下のコードをここにするかインタラクターに移るかについて少し考え直すようにK
+        Observable<Boolean> nextButtonState = Observable.combineLatest(
                 familyNameEvents,
                 familyDepositEvents,
                 (name, deposit) -> name && deposit
-        ).subscribe(
-                event -> {
-                    if (event) {
-                        onboardingEvents.accept(OnboardingEvent.ENABLE_NEXT_BUTTON);
-                        getViewOrThrow().showInputVerifiedStamp();
+        ).share();
+        nextButtonState.filter(isEnabled -> isEnabled)
+                       .subscribe(state -> {
+                                   onboardingEvents.accept(OnboardingEvent.ENABLE_NEXT_BUTTON);
+                                   getViewOrThrow().showInputVerifiedStamp();
+                       }, throwable -> Log.e("Verify failed: ", throwable.getMessage()));
+        nextButtonState.filter(isEnabled -> !isEnabled)
+                       .subscribe(state -> {
+                           onboardingEvents.accept(OnboardingEvent.DISABLE_NEXT_BUTTON);
+                           getViewOrThrow().showInvalidInputStamp();
+                       }, throwable -> Log.e("Verify failed: ", throwable.getMessage()));
 
-                    } else {
-                        onboardingEvents.accept(OnboardingEvent.DISABLE_NEXT_BUTTON);
-                        getViewOrThrow().showInvalidInputStamp();
-                    }
-                },
-                throwable -> Log.e("Verify", throwable.getMessage())
-        );
-        onboardingEvents.filter(event -> event.equals(OnboardingEvent.NEXT))
-                        .subscribe((event) -> login(
-                                    getViewOrThrow().getInputtedFamilyName(),
-                                    getViewOrThrow().getInputtedFamilyDeposit()
+        onboardingEvents.filter(event -> event.equals(OnboardingEvent.LOGIN))
+                        .subscribe(
+                                (event) -> login(
+                                        getViewOrThrow().getInputtedFamilyName(),
+                                        getViewOrThrow().getInputtedFamilyDeposit()
+                                ),
+                                throwable -> getViewOrThrow().showToast(
+                                        R.string.loginAttemptIsFailed,
+                                        Toast.LENGTH_LONG
                                 )
                         );
     }
@@ -62,9 +73,10 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
                 charSequence -> {
                     if (interactor.validateFamily(charSequence)) {
                         familyNameEvents.accept(true);
+                        getViewOrThrow().hideFamilyNameInputError();
                     } else {
                         familyNameEvents.accept(false);
-                        // TODO: 29.10.2018  disable next button
+                        getViewOrThrow().showFamilyNameInputError("Valid family name is longer that 5 alph. chars");
                     }
                 },
                 throwable -> {}
@@ -77,9 +89,10 @@ public class IntroducingPresenterImpl extends IntroducingPresenter {
                 charSequence -> {
                     if (interactor.validateDeposit(charSequence)) {
                         familyDepositEvents.accept(true);
+                        getViewOrThrow().hideFamilyDepositInputError();
                     } else {
                         familyDepositEvents.accept(false);
-                        // TODO: 29.10.2018  disable next button
+                        getViewOrThrow().showFamilyDepositInputError("Valid deposit is greater that 10000 value");
                     }
                 },
                 throwable -> {}

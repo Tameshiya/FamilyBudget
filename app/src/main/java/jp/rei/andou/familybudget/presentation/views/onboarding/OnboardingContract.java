@@ -11,6 +11,8 @@ public interface OnboardingContract {
         void onNextPressed();
         void setupAdapter(OnboardingPagerAdapter adapter);
         void enableNextButton(boolean enable);
+        void swipeToNextWizard();
+        int getCurrentPagePosition();
     }
 
     abstract class OnboardingPagerAdapterPresenter {

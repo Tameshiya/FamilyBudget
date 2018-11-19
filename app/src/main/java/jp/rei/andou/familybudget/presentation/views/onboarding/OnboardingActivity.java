@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 
 import javax.inject.Inject;
@@ -52,6 +53,16 @@ public class OnboardingActivity extends AppCompatActivity implements OnboardingC
     @Override
     public void enableNextButton(boolean enable) {
         nextButton.setEnabled(enable);
+    }
+
+    @Override
+    public void swipeToNextWizard() {
+        viewPager.arrowScroll(View.FOCUS_RIGHT);
+    }
+
+    @Override
+    public int getCurrentPagePosition() {
+        return viewPager.getCurrentItem();
     }
 
     @Override
